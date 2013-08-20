@@ -97,6 +97,8 @@ public class ActivityRecognitionIntentService extends IntentService {
             // Get the type of activity
             int activityType = mostProbableActivity.getType();
 
+            Log.w(ActivityUtils.APPTAG, String.format("activity = %s, confidence = %d", getNameFromType(activityType), confidence));
+
             // Check to see if the repository contains a previous activity
             if (!mPrefs.contains(ActivityUtils.KEY_PREVIOUS_ACTIVITY_TYPE)) {
 

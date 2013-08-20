@@ -20,6 +20,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -335,14 +336,19 @@ public class MainActivity extends Activity {
          */
         mRequestType = ActivityUtils.REQUEST_TYPE.REMOVE;
 
-        // Pass the remove request to the remover object
-        mDetectionRemover.removeUpdates(mDetectionRequester.getRequestPendingIntent());
+        PendingIntent pendingIntent = mDetectionRequester.getRequestPendingIntent();
 
-        /*
-         * Cancel the PendingIntent. Even if the removal request fails, canceling the PendingIntent
-         * will stop the updates.
-         */
-        mDetectionRequester.getRequestPendingIntent().cancel();
+        if (pendingIntent != null) {
+        
+	        // Pass the remove request to the remover object
+	        mDetectionRemover.removeUpdates(pendingIntent);
+	
+	        /*
+	         * Cancel the PendingIntent. Even if the removal request fails, canceling the PendingIntent
+	         * will stop the updates.
+	         */
+	        pendingIntent.cancel();
+        }
     }
 
     /**
